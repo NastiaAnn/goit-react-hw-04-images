@@ -59,7 +59,7 @@ export function ImageGallery({ imageName }) {
       .finally(() => {
         setIsLoader(false);
       });
-  }, [page, totalHits]);
+  }, [page, totalHits, imageName, imagesArray.length]);
 
   const handleAPIRequestChecking = images => {
     if (images.data.totalHits === 0) {

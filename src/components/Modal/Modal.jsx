@@ -4,17 +4,22 @@ import PropTypes from 'prop-types';
 
 export function Modal({ onClose, children }) {
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    });
+  }, [onClose]);
 
-  const handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      onClose();
-    }
-  };
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('keydown', e => {
+        if (e.code === 'Escape') {
+          onClose();
+        }
+      });
+    };
+  }, [onClose]);
 
   const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
