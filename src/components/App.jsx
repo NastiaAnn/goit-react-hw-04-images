@@ -1,14 +1,26 @@
-export const App = () => {
+import { useState } from 'react';
+import { SearchBar } from './Searchbar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+
+export function App() {
+  const [imageName, setImageName] = useState('');
+
+  const handleFormSubmit = imageName => {
+    setImageName(imageName);
+  };
+
   return (
     <div
       style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        gridGap: '16px',
+        paddingBottom: '24px',
       }}
-    ></div>
+    >
+      <SearchBar onSubmit={handleFormSubmit} />
+
+      <ImageGallery imageName={imageName} />
+    </div>
   );
-};
+}
