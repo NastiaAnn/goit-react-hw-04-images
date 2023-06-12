@@ -7,7 +7,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 export function SearchBar({ onSubmit }) {
   const [imageName, setImageName] = useState('');
 
-  const handleNameChange = event => {
+  const handleImageNameChange = event => {
     setImageName(event.currentTarget.value.toLowerCase());
   };
 
@@ -31,7 +31,7 @@ export function SearchBar({ onSubmit }) {
           <FormInput
             placeholder="Search images and photos"
             value={imageName}
-            onChange={handleNameChange}
+            onChange={handleImageNameChange}
           />
         </SearchForm>
       </header>
