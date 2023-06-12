@@ -4,20 +4,15 @@ import PropTypes from 'prop-types';
 
 export function Modal({ onClose, children }) {
   useEffect(() => {
-    window.addEventListener('keydown', e => {
+    const handleModalClose = e => {
       if (e.code === 'Escape') {
         onClose();
       }
-    });
-  }, [onClose]);
+    };
 
-  useEffect(() => {
+    window.addEventListener('keydown', handleModalClose);
     return () => {
-      window.removeEventListener('keydown', e => {
-        if (e.code === 'Escape') {
-          onClose();
-        }
-      });
+      window.removeEventListener('keydown', handleModalClose);
     };
   }, [onClose]);
 

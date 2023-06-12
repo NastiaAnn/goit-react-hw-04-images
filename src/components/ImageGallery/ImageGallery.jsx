@@ -21,27 +21,35 @@ export function ImageGallery({ imageName }) {
     if (imageName.trim() === '') {
       return;
     }
-
     setImagesArray([]);
     setIsLoader(true);
     setLoadedBtn(false);
-    setPage(1);
-    fetchImages(imageName, 1)
+    getApiResult(imageName, page);
+  }, [imageName, page]);
+
+  const getApiResult = (imageName, page) => {
+    fetchImages(imageName, page)
       .then(images => {
         setTotalHits(images.data.totalHits);
         handleAPIRequestChecking(images);
+        getAPIResult();
       })
       .catch(error => {
         console.log(error.message);
       });
-  }, [imageName]);
+  };
 
-  useEffect(() => {
-    if (page === 1) {
-      return;
-    }
-    setIsLoader(true);
-    setLoadedBtn(false);
+  // useEffect(() => {
+  //   if (page === 1) {
+  //     return;
+  //   }
+  //   setIsLoader(true);
+  //   setLoadedBtn(false);
+
+  //   getAPIResult(page);
+  // }, [page]);
+
+  const getAPIResult = page => {
     fetchImages(imageName, page)
       .then(images => {
         if (totalHits - 12 <= imagesArray.length) {
@@ -59,7 +67,7 @@ export function ImageGallery({ imageName }) {
       .finally(() => {
         setIsLoader(false);
       });
-  }, [page, totalHits, imageName, imagesArray.length]);
+  };
 
   const handleAPIRequestChecking = images => {
     if (images.data.totalHits === 0) {
